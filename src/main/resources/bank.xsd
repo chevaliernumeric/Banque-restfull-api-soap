@@ -1,0 +1,81 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://com.example.bank_api"
+            targetNamespace="http://com.example.bank_api"
+            elementFormDefault="qualified">
+
+    <!-- Get Balance Request -->
+    <xsd:element name="getBalanceRequest">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="accountId" type="xsd:long"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <!-- Get Balance Response -->
+    <xsd:element name="getBalanceResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="balance" type="xsd:double"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <!-- Get Transactions Request -->
+    <xsd:element name="getTransactionsRequest">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="accountId" type="xsd:long"/>
+                <xsd:element name="pageNumber" type="xsd:int"/>
+                <xsd:element name="pageSize" type="xsd:int"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <!-- Transaction Type -->
+    <xsd:complexType name="transaction">
+        <xsd:sequence>
+            <xsd:element name="id" type="xsd:long"/>
+            <xsd:element name="amount" type="xsd:double"/>
+            <xsd:element name="type" type="xsd:string"/>
+            <xsd:element name="currency" type="xsd:string"/>
+            <xsd:element name="transactionDate" type="xsd:dateTime"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <!-- Get Transactions Response -->
+    <xsd:element name="getTransactionsResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="transactions" type="transaction" maxOccurs="unbounded"/>
+                <xsd:element name="pageNumber" type="xsd:int"/>
+                <xsd:element name="pageSize" type="xsd:int"/>
+                <xsd:element name="totalPages" type="xsd:int"/>
+                <xsd:element name="totalElements" type="xsd:long"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <!-- Transfer Funds Request -->
+    <xsd:element name="transferFundsRequest">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="fromAccountId" type="xsd:long"/>
+                <xsd:element name="toAccountId" type="xsd:long"/>
+                <xsd:element name="amount" type="xsd:double"/>
+                <xsd:element name="currency" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <!-- Transfer Funds Response -->
+    <xsd:element name="transferFundsResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="status" type="xsd:string"/>
+                <xsd:element name="message" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+</xsd:schema>

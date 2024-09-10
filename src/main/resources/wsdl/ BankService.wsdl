@@ -1,0 +1,91 @@
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:tns="http://com.example.bank_api"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             targetNamespace="http://com.example.bank_api"
+             name="BankService">
+
+    <types>
+        <xsd:schema>
+            <xsd:import namespace="http://com.example.bank_api" schemaLocation="balance.xsd"/>
+            <xsd:import namespace="http://com.example.bank_api" schemaLocation="transactions.xsd"/>
+            <xsd:import namespace="http://com.example.bank_api" schemaLocation="transfer.xsd"/>
+        </xsd:schema>
+    </types>
+
+    <message name="getBalanceRequest">
+        <part name="parameters" element="tns:getBalanceRequest"/>
+    </message>
+
+    <message name="getBalanceResponse">
+        <part name="parameters" element="tns:getBalanceResponse"/>
+    </message>
+
+    <message name="getTransactionsRequest">
+        <part name="parameters" element="tns:getTransactionsRequest"/>
+    </message>
+
+    <message name="getTransactionsResponse">
+        <part name="parameters" element="tns:getTransactionsResponse"/>
+    </message>
+
+    <message name="transferFundsRequest">
+        <part name="parameters" element="tns:transferFundsRequest"/>
+    </message>
+
+    <message name="transferFundsResponse">
+        <part name="parameters" element="tns:transferFundsResponse"/>
+    </message>
+
+    <portType name="BankPortType">
+        <operation name="getBalance">
+            <input message="tns:getBalanceRequest"/>
+            <output message="tns:getBalanceResponse"/>
+        </operation>
+        <operation name="getTransactions">
+            <input message="tns:getTransactionsRequest"/>
+            <output message="tns:getTransactionsResponse"/>
+        </operation>
+        <operation name="transferFunds">
+            <input message="tns:transferFundsRequest"/>
+            <output message="tns:transferFundsResponse"/>
+        </operation>
+    </portType>
+
+    <binding name="BankBinding" type="tns:BankPortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <operation name="getBalance">
+            <soap:operation soapAction="http://com.example.bank_api/getBalance"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="getTransactions">
+            <soap:operation soapAction="http://com.example.bank_api/getTransactions"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="transferFunds">
+            <soap:operation soapAction="http://com.example.bank_api/transferFunds"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+
+    <service name="BankService">
+        <port name="BankPort" binding="tns:BankBinding">
+            <soap:address location="http://localhost:8081/ws"/>
+        </port>
+    </service>
+</definitions>
